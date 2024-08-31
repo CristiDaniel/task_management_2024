@@ -1,0 +1,24 @@
+
+.task {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: space-between;
+}
+.task_action_delete,
+.task_action_edit {
+    cursor: pointer;
+}
+.task_description {
+    background: #f0f0f0;
+    width: 100%;
+    padding: 10px;
+    max-width: 500px;
+    border-radius: 5px;
+    border: 1px solid #0002;
+    font-size: 17px;
+}
