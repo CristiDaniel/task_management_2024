@@ -34,10 +34,9 @@ const useListOfTasks = () => {
         queryClient.invalidateQueries({ queryKey: ['tasks'] })
         toast.success(`Task-ul ${task.title} a fost adaugat cu succes`)
       },
-      // onError: (error) => {
-      //   // console.log(error.response.data)
-      // }
     })
+
+
       
       return {
         tasks,

@@ -14,15 +14,7 @@ export default function ListOfTasks() {
     updateTask({taskId, updatedFields: {priority: priorityVal}})
   }
 
-  // Case no results 
-  if(tasks.length === 0) {
-    return (
-      <>
-      <AddTaskForm />
-      <p>There are no tasks</p>
-      </>
-    )
-  }
+
 
   // Case loading 
   if (isLoading) return <div>Loading...</div>;
@@ -30,6 +22,15 @@ export default function ListOfTasks() {
   // Case error 
   if (error) return <div>Error loading tasks</div>;
 
+    // Case no results 
+    if(tasks.length === 0) {
+      return (
+        <>
+        <AddTaskForm />
+        <p>There are no tasks</p>
+        </>
+      )
+    }
   return (
     <>
       <AddTaskForm />
