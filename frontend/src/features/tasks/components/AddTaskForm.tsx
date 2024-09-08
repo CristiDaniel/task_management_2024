@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useListOfTasks from "../hooks/useListOfTasks";
+import PrioritySelector from "./PrioritySelector";
 
 const AddTaskForm = () => {
     const {addTask, error, isError} = useListOfTasks()
@@ -31,13 +32,6 @@ const AddTaskForm = () => {
                 onChange={handleInputChange}
                 placeholder="Task Title"
             />
-            {/* {error.response.data['title'].length >=1 ? <div>{error.response.data['title']}</div> : ''} */}
-            <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                placeholder="Task Description"
-            ></textarea>
             <select
                 name="priority"
                 value={formData.priority}
@@ -47,6 +41,7 @@ const AddTaskForm = () => {
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
             </select>
+            
             <input type="submit" value="Add Task" />
         </form>
     );

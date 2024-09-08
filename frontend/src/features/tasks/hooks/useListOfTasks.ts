@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { TaskItem } from "../interfaces";
-import { addTask, deleteTask, fetchListOfTasks } from "../services/taskService";
+import { addTask, deleteTask, fetchListOfTasks, updateTask } from "../services/taskService";
 import { toast } from "react-toastify";
 
 
@@ -11,9 +11,17 @@ const useListOfTasks = () => {
         queryFn: fetchListOfTasks,
       });
 
-      // Remove task from the list
+    // Remove task from the list
     const deleteTaskMutation = useMutation({
       mutationFn: (taskId: number) => deleteTask(taskId),
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['tasks'] })
+      }
+    })
+
+    // Update a task from the list
+    const updateTaskMutation = useMutation({
+      mutationFn: updateTask,
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['tasks'] })
       }
@@ -26,9 +34,9 @@ const useListOfTasks = () => {
         queryClient.invalidateQueries({ queryKey: ['tasks'] })
         toast.success(`Task-ul ${task.title} a fost adaugat cu succes`)
       },
-      onError: (error) => {
-        console.log(error.response.data)
-      }
+      // onError: (error) => {
+      //   // console.log(error.response.data)
+      // }
     })
       
       return {
@@ -37,7 +45,8 @@ const useListOfTasks = () => {
         error,
         isError,
         deleteTask: deleteTaskMutation.mutate,
-        addTask: addTaskMutation.mutate
+        addTask: addTaskMutation.mutate,
+        updateTask: updateTaskMutation.mutate,
       }
 }
 

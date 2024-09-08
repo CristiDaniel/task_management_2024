@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TaskItem } from "../interfaces";
+import { TaskItem, UpdateTaskParams } from "../interfaces";
 
 export const fetchTask = async (taskId : number): Promise<TaskItem> => {
     const response = await axios.get(`http://localhost:8000/api/tasks/${taskId}/`);
@@ -14,7 +14,11 @@ export const deleteTask = async (taskId: number) => {
     const response = await axios.delete(`http://localhost:8000/api/tasks/${taskId}/`);
     return response.data
 }
-export const addTask = async (newTask: any) => {
+export const addTask = async (newTask: Partial<TaskItem>) => {
     const response = await axios.post(`http://localhost:8000/api/tasks/`, newTask)
+    return response.data
+}
+export const updateTask = async ({taskId, updatedFields} : UpdateTaskParams) => {
+    const response = await axios.patch(`http://localhost:8000/api/tasks/${taskId}/`, updatedFields);
     return response.data
 }

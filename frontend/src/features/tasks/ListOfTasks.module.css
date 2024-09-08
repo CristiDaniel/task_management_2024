@@ -13,12 +13,20 @@
 .task_action_edit {
     cursor: pointer;
 }
-.task_description {
-    background: #f0f0f0;
-    width: 100%;
-    padding: 10px;
-    max-width: 500px;
-    border-radius: 5px;
-    border: 1px solid #0002;
-    font-size: 17px;
+/* .title_container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+} */
+.title_container * {
+    margin: 0;
+}
+.main_content_task {
+    display: flex;
+    align-items: center;
+    gap: 7.5px;
+}
+.main_content_task input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
 }
