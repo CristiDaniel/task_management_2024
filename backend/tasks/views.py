@@ -11,16 +11,30 @@ class TaskListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = Task.objects.all()
         completed = self.request.query_params.get('completed', None)
-        description = self.request.query_params.get('description', None)
+        order = self.request.query_params.get('order')
 
+
+        # Filter phase
         if completed is not None:
-            completed = completed.lower() in ['true', '1', 'yes']
-            queryset = queryset.filter(completed=completed)
+            if completed.lower() in ['all', '']:
+                pass
+            else:
+                completed = completed.lower() in ['true', '1', 'yes']
+                queryset = queryset.filter(completed=completed)
 
-        if description is not None:
-            queryset = queryset.filter(description__icontains=description)
 
-        queryset = queryset.order_by('created_at')
+        # Order phase
+        if order == 'date_added_asc':
+            queryset = queryset.order_by('created_at')
+        elif order == 'date_added_desc':
+            queryset = queryset.order_by('-created_at')
+        elif order == 'title_asc':
+            queryset = queryset.order_by('title')
+        elif order == 'title_desc':
+            queryset = queryset.order_by('-title')
+        else:
+            queryset = queryset.order_by('-created_at')
+
 
         return queryset
 
