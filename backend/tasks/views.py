@@ -20,7 +20,7 @@ class TaskListCreateView(generics.ListCreateAPIView):
         if description is not None:
             queryset = queryset.filter(description__icontains=description)
 
-        queryset = queryset.order_by('-created_at')
+        queryset = queryset.order_by('created_at')
 
         return queryset
 
