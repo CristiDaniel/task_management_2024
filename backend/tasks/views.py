@@ -2,9 +2,6 @@ from rest_framework import generics
 from .models import Task
 from .serializers import TaskSerializer
 
-# class TaskListCreateView(generics.ListCreateAPIView):
-#     queryset = Task.objects.all()
-#     serializer_class = TaskSerializer
 class TaskListCreateView(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
 
@@ -12,9 +9,9 @@ class TaskListCreateView(generics.ListCreateAPIView):
         queryset = Task.objects.all()
         completed = self.request.query_params.get('completed', None)
         order = self.request.query_params.get('order')
+        priority = self.request.query_params.get('priority', None)
 
-
-        # Filter phase
+        # Filtrare după completed (finalizat/nefinalizat)
         if completed is not None:
             if completed.lower() in ['all', '']:
                 pass
@@ -22,8 +19,13 @@ class TaskListCreateView(generics.ListCreateAPIView):
                 completed = completed.lower() in ['true', '1', 'yes']
                 queryset = queryset.filter(completed=completed)
 
+        # Filtrare după priorități
+        if priority:
+            # priority poate fi o listă separată prin virgule (low,medium,high)
+            priority_values = priority.split(',')
+            queryset = queryset.filter(priority__in=priority_values)
 
-        # Order phase
+        # Sortare
         if order == 'date_added_asc':
             queryset = queryset.order_by('created_at')
         elif order == 'date_added_desc':
@@ -34,7 +36,6 @@ class TaskListCreateView(generics.ListCreateAPIView):
             queryset = queryset.order_by('-title')
         else:
             queryset = queryset.order_by('-created_at')
-
 
         return queryset
 
