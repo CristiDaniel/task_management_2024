@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -10,23 +11,39 @@ export default function TaskFilters() {
   const currentOrder = queryParams.get('order') || 'date_added_desc';
   const currentStatus = queryParams.get('completed') || '';
 
+  // State pentru priorități (low, medium, high)
+  const [priority, setPriority] = useState<string[]>(queryParams.get('priority')?.split(',') || []);
+
   // Handle changing the order
   const handleOnChangeOrder = (value: string) => {
-    if(value === 'date_added_desc') {
-        deleteQueryParam('order')
+    if (value === 'date_added_desc') {
+      deleteQueryParam('order');
     } else {
-        setQueryParam('order', value);
+      setQueryParam('order', value);
     }
   };
 
   // Handle changing the status
   const handleOnChangeStatus = (value: string) => {
     if (value === '') {
-      // If the selected value is empty, remove the 'completed' query param
       deleteQueryParam('completed');
     } else {
-      // Otherwise, set the query param to the selected value
       setQueryParam('completed', value);
+    }
+  };
+
+  // Handle changing the priority
+  const handleOnChangePriority = (value: string) => {
+    const newPriority = priority.includes(value)
+      ? priority.filter(p => p !== value) 
+      : [...priority, value];
+
+    setPriority(newPriority);
+
+    if (newPriority.length > 0) {
+      setQueryParam('priority', newPriority.join(','));
+    } else {
+      deleteQueryParam('priority');
     }
   };
 
@@ -38,6 +55,7 @@ export default function TaskFilters() {
     navigate(newUrl);
     queryClient.invalidateQueries({ queryKey: ['tasks'] });
   }
+
   function deleteQueryParam(key: string) {
     queryParams.delete(key);
 
@@ -66,6 +84,40 @@ export default function TaskFilters() {
           <option value="yes">Completed</option>
           <option value="no">Incompleted</option>
         </select>
+      </div>
+
+      <div>
+        <label>Priority</label>
+        <div>
+          <input
+            type="checkbox"
+            name="low"
+            value="low"
+            checked={priority.includes('low')}
+            onChange={(e) => handleOnChangePriority(e.target.value)}
+          />
+          <label htmlFor="low">Low</label>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            name="medium"
+            value="medium"
+            checked={priority.includes('medium')}
+            onChange={(e) => handleOnChangePriority(e.target.value)}
+          />
+          <label htmlFor="medium">Medium</label>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            name="high"
+            value="high"
+            checked={priority.includes('high')}
+            onChange={(e) => handleOnChangePriority(e.target.value)}
+          />
+          <label htmlFor="high">High</label>
+        </div>
       </div>
     </div>
   );

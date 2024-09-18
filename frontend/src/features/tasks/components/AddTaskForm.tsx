@@ -9,7 +9,7 @@ const AddTaskForm = () => {
         description: "",
         priority: "low"
     });
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: any) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -17,11 +17,19 @@ const AddTaskForm = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault(); // Previi trimiterea formularului către server
-        console.log(formData); // Afișezi datele în consolă
         addTask(formData)
+        resetForm()
     };
+
+    function resetForm() {
+        setFormData({
+            title: "",
+            description: "",
+            priority: "low"
+        })
+    }
 
     return (
         <form onSubmit={handleSubmit}>

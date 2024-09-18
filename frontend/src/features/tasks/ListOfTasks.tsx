@@ -41,7 +41,7 @@ export default function ListOfTasks() {
               <input onChange={() => handleCheckboxChange(task.id, task.completed)} type="checkbox" checked={task.completed}/>
               <div>
                 <div className={styles.title_container}>
-                  <h2>{task.title}{task.id}</h2>
+                  <h2>{task.title}</h2>
                   <p>Priority:
                   <select
                     name="priority"

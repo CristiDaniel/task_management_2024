@@ -29,4 +29,5 @@
 .main_content_task input[type="checkbox"] {
     width: 20px;
     height: 20px;
+    flex-shrink: 0;
 }
