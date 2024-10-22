@@ -14,6 +14,12 @@ export default function ListOfTasks() {
     updateTask({taskId, updatedFields: {priority: priorityVal}})
   }
 
+  const priorityColors = {
+    low: '#22bb33',
+    medium: '#ffc302',
+    high: '#bb2124',
+  }
+
 
 
   // Case loading 
@@ -36,7 +42,7 @@ export default function ListOfTasks() {
       <AddTaskForm />
     <div className={styles.list_of_tasks}>
         {tasks.map(task => (
-          <div className={styles.task} key={task.id}>
+          <div style={{backgroundColor: priorityColors[task.priority]}} className={styles.task} key={task.id}>
             <div className={styles.main_content_task}>
               <input onChange={() => handleCheckboxChange(task.id, task.completed)} type="checkbox" checked={task.completed}/>
               <div>

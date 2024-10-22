@@ -1,14 +1,15 @@
 import { useState } from "react";
 import useListOfTasks from "../hooks/useListOfTasks";
-import PrioritySelector from "./PrioritySelector";
+import { toast } from "react-toastify";
 
 const AddTaskForm = () => {
     const {addTask, error, isError} = useListOfTasks()
     const [formData, setFormData] = useState({
         title: "",
-        description: "",
         priority: "low"
     });
+    const {title} = formData;
+
     const handleInputChange = (e: any) => {
         const { name, value } = e.target;
         setFormData({
@@ -18,7 +19,11 @@ const AddTaskForm = () => {
     };
 
     const handleSubmit = (e: any) => {
-        e.preventDefault(); // Previi trimiterea formularului către server
+        e.preventDefault(); 
+        if(title.trim() === '') {
+            toast.error('Task-ul trebuie sa aiba o denumire.')
+            return;
+        }
         addTask(formData)
         resetForm()
     };
@@ -26,7 +31,6 @@ const AddTaskForm = () => {
     function resetForm() {
         setFormData({
             title: "",
-            description: "",
             priority: "low"
         })
     }
