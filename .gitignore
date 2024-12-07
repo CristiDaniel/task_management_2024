@@ -1,0 +1,23 @@
+# Python compilation directories
+__pycache__/
+
+# Virtual environment (`venv` or `env`)
+/venv/
+*.pyc
+
+# Other temporary files or directories
+*.swp
+*.swo
+*.swn
+*.swc
+*.pyo
+*.pyd
+*.pdb
+*.mo
+*.po
+
+# Databases
+db.sqlite3
+
+# Log files
+*.log
