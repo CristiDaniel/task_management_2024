@@ -1,0 +1,7 @@
+.grid_layout_homepage {
+    display: grid;
+    gap: 15px;
+    width: 100%;
+    grid-template: auto / 300px 1fr;
+    margin-inline: auto;
+}
