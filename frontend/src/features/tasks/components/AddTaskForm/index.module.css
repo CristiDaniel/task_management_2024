@@ -1,0 +1,30 @@
+.add_task_form {
+    display: flex;
+    background-color: #fff9;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+.add_task_form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: unset;
+    font-size: 18px;
+    border-radius: 5px 0 0 5px;
+}
+
+.add_task_form select {
+    border-radius: 0 5px 5px 0;
+    border: unset;
+    border-left: 1px solid #0003;
+    padding: 10px;
+}
+
+.add_task_form input[type="submit"] {
+    padding: 10px 20px;
+    margin-left: 15px;
+    border: unset;
+    border-radius: 5px;
+    background: #181818;
+    color: #fff;
+}

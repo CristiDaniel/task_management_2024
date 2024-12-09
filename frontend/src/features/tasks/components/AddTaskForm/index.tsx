@@ -1,9 +1,11 @@
 import { useState } from "react";
-import useListOfTasks from "../hooks/useListOfTasks";
 import { toast } from "react-toastify";
 
+import styles from './index.module.css'
+import useListOfTasks from "../../hooks/useListOfTasks";
+
 const AddTaskForm = () => {
-    const {addTask, error, isError} = useListOfTasks()
+    const {addTask} = useListOfTasks()
     const [formData, setFormData] = useState({
         title: "",
         priority: "low"
@@ -36,7 +38,7 @@ const AddTaskForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form  className={styles.add_task_form} onSubmit={handleSubmit}>
             <input
                 type="text"
                 name="title"
