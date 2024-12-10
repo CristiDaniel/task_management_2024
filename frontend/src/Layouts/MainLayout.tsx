@@ -1,9 +1,10 @@
 import { Outlet } from 'react-router-dom';
+import Header from '../LayoutComponents/Header';
 
 export default function MainLayout() {
   return (
     <>
-    <header>Task Management Project</header>
+    <Header />
     <main><Outlet /></main>
     <footer>Footer</footer>
     </>

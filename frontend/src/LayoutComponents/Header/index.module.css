@@ -1,0 +1,15 @@
+.header img {
+    width: 200px;
+    height: auto;
+    object-fit: contain;
+}
+.header {
+    background: #252525;
+    padding-block: 5px;
+    padding-inline: 10vw;
+    position: fixed;
+    z-index: 99999;
+    width: 100%;
+    inset-inline: 0;
+    top: 0;
+}
