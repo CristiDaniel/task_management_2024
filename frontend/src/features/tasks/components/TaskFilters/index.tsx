@@ -11,10 +11,10 @@ import { ITaskPriority } from '../../interfaces';
  * Allows sorting, filtering by status, and filtering by priority.
  */
 export default function TaskFilters() {
-  const {tasks} = useListOfTasks();
-  const countLowPriorityTasks = tasks.filter(task => task.priority === 'low').length;
-  const countMediumPriorityTasks = tasks.filter(task => task.priority === 'medium').length;
-  const countHighPriorityTasks = tasks.filter(task => task.priority === 'high').length;
+  const {countPriority} = useListOfTasks();
+  const countLowPriorityTasks = countPriority.low;
+  const countMediumPriorityTasks = countPriority.medium;
+  const countHighPriorityTasks = countPriority.high;
 
   const queryClient = useQueryClient();
   const location = useLocation();

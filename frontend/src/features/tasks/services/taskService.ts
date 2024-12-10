@@ -26,3 +26,7 @@ export const filterTasks = async (queryParams: {[key: string]: any}) => {
     const response = await axios.post(`http://localhost:8000/api/tasks/`, queryParams)
     return response.data
 }
+export const countPriorityTasks = async () => {
+    const response = await axios.get(`http://localhost:8000/api/tasks/count-priorities`)
+    return response.data
+}
