@@ -1,12 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { TaskItem } from "../interfaces";
+import { ITaskItem } from "../interfaces";
 import { addTask, deleteTask, fetchListOfTasks, updateTask } from "../services/taskService";
 import { toast } from "react-toastify";
 
 
 const useListOfTasks = () => {
     const queryClient = useQueryClient();
-    const { data:tasks = [], error, isLoading, isError } = useQuery<TaskItem[]>({
+    const { data:tasks = [], error, isLoading, isError } = useQuery<ITaskItem[]>({
         queryKey: ['tasks'],
         queryFn: fetchListOfTasks,
       });
