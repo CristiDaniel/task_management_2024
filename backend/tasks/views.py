@@ -1,4 +1,8 @@
 from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+
 from .models import Task
 from .serializers import TaskSerializer
 
@@ -42,3 +46,19 @@ class TaskListCreateView(generics.ListCreateAPIView):
 class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+
+class TasksPrioritiesView(APIView):
+    def get(self, request, *args, **kwargs):
+        # Obține numărul de task-uri pe fiecare prioritate
+        low_count = Task.objects.filter(priority="low").count()
+        medium_count = Task.objects.filter(priority="medium").count()
+        high_count = Task.objects.filter(priority="high").count()
+
+        # Structura de răspuns
+        response_data = {
+            "low": low_count,
+            "medium": medium_count,
+            "high": high_count,
+        }
+
+        return Response(response_data)
