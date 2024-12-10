@@ -1,0 +1,47 @@
+.filters {
+    display: flex;
+    flex-direction: column;
+    gap: 7.5px;
+    background: #171717;
+    padding: 15px;
+    border-radius: 10px;
+    border: .5px solid #fff2;
+    height: fit-content;
+    position: sticky;
+    top: 18.5px;
+}
+
+.filter_item_select {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.filter_item_select label, .filter_item > label {
+    color: #dadada;
+}
+.filter_item_select select, .filter_item input {
+    border: unset;
+    background: #353535;
+    padding: 10px;
+    border-radius: 7.5px;
+    color: #9c9c9c;
+}
+.filter_item_select select:focus-visible, .filter_item input:focus-visible  {
+    outline: none;
+}
+
+.priority_filter_item {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+.priority_filter_item label {
+    color: #c0c0c0;
+    font-size: 14px;
+}
+.priority_filter_item input {
+    width: 18px;
+    height: 18px;
+    accent-color: rgb(0, 94, 0);
+    cursor: pointer;
+}

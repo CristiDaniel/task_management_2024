@@ -80,7 +80,7 @@ export default function TaskFilters() {
 
   return (
     <div className={styles.filters}>
-      <div className={styles.filter_item}>
+      <div className={styles.filter_item_select}>
         <label htmlFor="order">Sort by</label>
         <select id="order" value={currentOrder} onChange={(e) => handleOnChangeOrder(e.target.value)}>
           <option value="date_added_desc">Newest First</option>
@@ -90,7 +90,7 @@ export default function TaskFilters() {
         </select>
       </div>
       
-      <div className={styles.filter_item}>
+      <div className={styles.filter_item_select}>
         <label htmlFor="status">Status</label>
         <select value={currentStatus} id="status" name="status" onChange={(e) => handleOnChangeStatus(e.target.value)}>
           <option value="">All</option>
@@ -101,7 +101,7 @@ export default function TaskFilters() {
 
       <div className={styles.filter_item}>
         <label>Priority</label>
-        <div>
+        <div className={styles.priority_filter_item}>
           <input
             type="checkbox"
             name="low"
@@ -111,7 +111,7 @@ export default function TaskFilters() {
           />
           <label htmlFor="low">Low <span>({countLowPriorityTasks})</span></label>
         </div>
-        <div>
+        <div className={styles.priority_filter_item}>
           <input
             type="checkbox"
             name="medium"
@@ -121,7 +121,7 @@ export default function TaskFilters() {
           />
           <label htmlFor="medium">Medium <span>({countMediumPriorityTasks})</span></label>
         </div>
-        <div>
+        <div className={styles.priority_filter_item}>
           <input
             type="checkbox"
             name="high"
