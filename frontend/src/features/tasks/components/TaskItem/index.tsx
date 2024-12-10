@@ -21,7 +21,7 @@ export default function TaskItem(props: ITaskItem) {
     high: {border: "#630000", color: "#b00000"},
   }
     return (
-        <div className={styles.task} key={props.id}>
+        <div className={styles.task} draggable={true}>
         <div className={styles.main_content_task}>
           <div>
             <div className={styles.title_container}>
