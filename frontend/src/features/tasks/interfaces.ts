@@ -1,18 +1,18 @@
-export interface TaskItem {
+export interface ITaskItem {
     id: number;
     title: string;
     completed: boolean;
-    priority: 'low' | 'medium' | 'high',
+    priority: ITaskPriority,
     created_at: string;
 }
 
 export interface TaskListProps {
-    tasks: TaskItem[];
+    tasks: ITaskItem[];
 }
 
 export interface UpdateTaskParams {
     taskId: number,
-    updatedFields: Partial<TaskItem>
+    updatedFields: Partial<ITaskItem>
 }
 
-export type taskPriority = Pick<TaskItem, 'priority'>;
+export type ITaskPriority = 'low' | 'medium' | 'high';
