@@ -1,6 +1,6 @@
 body {
   background: #000;
-  padding-inline: 250px;
+  margin: 0;
 }
 div#root {
   display: flex;
@@ -10,4 +10,8 @@ div#root {
 
 main {
   flex-grow: 1;
+  margin-top: 75px;
+}
+main, footer {
+  padding-inline: 10vw;
 }
