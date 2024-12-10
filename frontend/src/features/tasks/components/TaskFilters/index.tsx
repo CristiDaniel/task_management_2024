@@ -2,7 +2,20 @@ import { useState } from 'react';
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import styles from './index.module.css';
+import useListOfTasks from '../../hooks/useListOfTasks';
+import { ITaskPriority } from '../../interfaces';
+
+/**
+ * Component for rendering task filters.
+ * Allows sorting, filtering by status, and filtering by priority.
+ */
 export default function TaskFilters() {
+  const {tasks} = useListOfTasks();
+  const countLowPriorityTasks = tasks.filter(task => task.priority === 'low').length;
+  const countMediumPriorityTasks = tasks.filter(task => task.priority === 'medium').length;
+  const countHighPriorityTasks = tasks.filter(task => task.priority === 'high').length;
+
   const queryClient = useQueryClient();
   const location = useLocation();
   const navigate = useNavigate();
@@ -11,10 +24,10 @@ export default function TaskFilters() {
   const currentOrder = queryParams.get('order') || 'date_added_desc';
   const currentStatus = queryParams.get('completed') || '';
 
-  // State pentru priorități (low, medium, high)
-  const [priority, setPriority] = useState<string[]>(queryParams.get('priority')?.split(',') || []);
+  const urlPriority = (queryParams.get('priority')?.split(',') || []) as ITaskPriority[];
+  const [priority, setPriority] = useState<ITaskPriority[]>(urlPriority);
 
-  // Handle changing the order
+  /** Handle change order */ 
   const handleOnChangeOrder = (value: string) => {
     if (value === 'date_added_desc') {
       deleteQueryParam('order');
@@ -23,7 +36,7 @@ export default function TaskFilters() {
     }
   };
 
-  // Handle changing the status
+  /** Handle change status */ 
   const handleOnChangeStatus = (value: string) => {
     if (value === '') {
       deleteQueryParam('completed');
@@ -32,8 +45,8 @@ export default function TaskFilters() {
     }
   };
 
-  // Handle changing the priority
-  const handleOnChangePriority = (value: string) => {
+  /** Handle change priority */ 
+  const handleOnChangePriority = (value: ITaskPriority) => {
     const newPriority = priority.includes(value)
       ? priority.filter(p => p !== value) 
       : [...priority, value];
@@ -66,8 +79,8 @@ export default function TaskFilters() {
   }
 
   return (
-    <div>
-      <div>
+    <div className={styles.filters}>
+      <div className={styles.filter_item}>
         <label htmlFor="order">Sort by</label>
         <select id="order" value={currentOrder} onChange={(e) => handleOnChangeOrder(e.target.value)}>
           <option value="date_added_desc">Newest First</option>
@@ -77,7 +90,7 @@ export default function TaskFilters() {
         </select>
       </div>
       
-      <div>
+      <div className={styles.filter_item}>
         <label htmlFor="status">Status</label>
         <select value={currentStatus} id="status" name="status" onChange={(e) => handleOnChangeStatus(e.target.value)}>
           <option value="">All</option>
@@ -86,7 +99,7 @@ export default function TaskFilters() {
         </select>
       </div>
 
-      <div>
+      <div className={styles.filter_item}>
         <label>Priority</label>
         <div>
           <input
@@ -94,9 +107,9 @@ export default function TaskFilters() {
             name="low"
             value="low"
             checked={priority.includes('low')}
-            onChange={(e) => handleOnChangePriority(e.target.value)}
+            onChange={(e) => handleOnChangePriority(e.target.value as ITaskPriority)}
           />
-          <label htmlFor="low">Low</label>
+          <label htmlFor="low">Low <span>({countLowPriorityTasks})</span></label>
         </div>
         <div>
           <input
@@ -104,9 +117,9 @@ export default function TaskFilters() {
             name="medium"
             value="medium"
             checked={priority.includes('medium')}
-            onChange={(e) => handleOnChangePriority(e.target.value)}
+            onChange={(e) => handleOnChangePriority(e.target.value as ITaskPriority)}
           />
-          <label htmlFor="medium">Medium</label>
+          <label htmlFor="medium">Medium <span>({countMediumPriorityTasks})</span></label>
         </div>
         <div>
           <input
@@ -114,9 +127,9 @@ export default function TaskFilters() {
             name="high"
             value="high"
             checked={priority.includes('high')}
-            onChange={(e) => handleOnChangePriority(e.target.value)}
+            onChange={(e) => handleOnChangePriority(e.target.value as ITaskPriority)}
           />
-          <label htmlFor="high">High</label>
+          <label htmlFor="high">High <span>({countHighPriorityTasks})</span></label>
         </div>
       </div>
     </div>
