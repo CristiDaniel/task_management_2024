@@ -1,0 +1,94 @@
+
+.task {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: start;
+    gap: 15px;
+    background-color: #171717;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    border: 1px solid #fff1;
+}
+.task_action_delete,
+.task_action_edit {
+    cursor: pointer;
+}
+
+.title_container * {
+    margin: 0;
+    color: #c0c0c0;
+}
+.title_container {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.main_content_task {
+    display: flex;
+    align-items: center;
+    gap: 7.5px;
+}
+.main_content_task input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.title_container select {
+    background: #2a2a2a;
+    border-radius: 5px;
+    margin-left: 10px;
+    padding: 5px;
+}
+.title_container select:focus-visible {
+    outline: navajowhite;
+}
+.date_added {
+    color: #7d7d7d;
+    margin-top: 15px;
+    display: block;
+}
+
+.task_actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-left: auto;
+    border-bottom: .5px solid #fff4;
+    padding-bottom: 15px;
+    width: 100%;
+    justify-content: space-between;
+}
+.task_actions label {
+    color: #afafaf;
+    background: #363636;
+    padding: 8px 15px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    user-select: none;
+}
+.task_actions label input[type="checkbox"] {
+    accent-color: #fff;
+    width: 15px;
+    height: 15px;
+}
+
+.task_action_delete {
+    background: #343434;
+    border: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+
+.task_action_delete svg path {
+    fill: #ffffff;
+}
