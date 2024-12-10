@@ -4,6 +4,8 @@
     border-radius: 5px;
     padding: 5px;
     margin-bottom: 15px;
+    position: sticky;
+    top: 75px;
 }
 .add_task_form input[type="text"] {
     width: 100%;
