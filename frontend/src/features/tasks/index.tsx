@@ -16,7 +16,7 @@ export default function ListOfTasks() {
       {
         tasks.length !== 0 ?
       <div className={styles.list_of_tasks}>
-        {tasks.map(task => <TaskItem {...task}/>)}
+        {tasks.map(task => <TaskItem {...task} key={task.id}/>)}
       </div>
       :
       <p>There are no tasks</p>
