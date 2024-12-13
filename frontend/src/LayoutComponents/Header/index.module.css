@@ -1,15 +1,18 @@
 .header img {
-    width: 200px;
+    width: 180px;
     height: auto;
     object-fit: contain;
 }
 .header {
-    background: #252525;
-    padding-block: 5px;
+    background: #4c4c4c2b;
+    padding-block: 10px;
     padding-inline: 10vw;
     position: fixed;
     z-index: 99999;
     width: 100%;
     inset-inline: 0;
     top: 0;
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
 }
