@@ -1,5 +1,5 @@
 import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import * as ReactDOMClient from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "./Layouts/MainLayout";
 import Homepage from "./Pages/Homepage";
@@ -9,7 +9,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,12 +27,23 @@ const router = createBrowserRouter([
   },
 ]);
 
-createRoot(document.getElementById("root")!).render(
+const AppWrapper = () => (
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ToastContainer theme="dark" position="bottom-left" autoClose={2000} transition={Zoom} />
+      <ToastContainer
+        theme="dark"
+        position="bottom-left"
+        autoClose={2000}
+        transition={Zoom}
+      />
       <RouterProvider router={router} />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </StrictMode>
 );
+if (process.env.NODE_ENV !== "test") {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const root = ReactDOMClient.createRoot(document.getElementById("root")!);
+
+  root.render(<AppWrapper />);
+}

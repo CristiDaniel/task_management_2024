@@ -1,3 +1,5 @@
+import '@testing-library/jest-dom'
+
 describe('It should run a test', () => {
     it('simple addition test', () => {
         const sum = 1 + 2;
