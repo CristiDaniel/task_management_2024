@@ -9,6 +9,10 @@ import {
 } from "../services/taskService";
 import { toast } from "react-toastify";
 
+
+/**
+ * Custom React hook for managing tasks list.
+ */
 const useListOfTasks = () => {
   const queryClient = useQueryClient();
   const {
@@ -21,9 +25,9 @@ const useListOfTasks = () => {
     queryFn: fetchListOfTasks,
   });
 
-  // Remove task from the list
+  //** Remove task from the list */
   const deleteTaskMutation = useMutation({
-    mutationFn: (taskId: number) => deleteTask(taskId),
+    mutationFn: (taskId: ITaskItem["id"]) => deleteTask(taskId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       queryClient.invalidateQueries({ queryKey: ["countTaskPriorities"] });
@@ -34,12 +38,13 @@ const useListOfTasks = () => {
     },
   });
 
-  // Update a task from the list
+  /** Update a task from the list */
   const updateTaskMutation = useMutation({
     mutationFn: updateTask,
-    onSuccess: () => {
+    onSuccess: (item) => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       queryClient.invalidateQueries({ queryKey: ["countTaskPriorities"] });
+      toast.success(`Task-ul ${item.title} a fost actualizat!`);
     },
     onError: (err) => {
       console.log(err);
@@ -47,9 +52,9 @@ const useListOfTasks = () => {
     },
   });
 
-  // Add a new task
+  /** Add a new task */
   const addTaskMutation = useMutation({
-    mutationFn: (newTask: any) => addTask(newTask),
+    mutationFn: (newTask: Partial<ITaskItem>) => addTask(newTask),
     onSuccess: (task) => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       queryClient.invalidateQueries({ queryKey: ["countTaskPriorities"] });
@@ -57,11 +62,11 @@ const useListOfTasks = () => {
     },
     onError: (err) => {
       console.log(err);
-      toast.error(`A aparut o eroare la sadaugarea task-ului!`);
+      toast.error(`A aparut o eroare la adaugarea task-ului!`);
     },
   });
 
-  // Add a new task
+  /** Count tasks per priority */
   const { data: countPriority = { low: 0, medium: 0, high: 0 } } = useQuery({
     queryKey: ["countTaskPriorities"],
     queryFn: countPriorityTasks,
