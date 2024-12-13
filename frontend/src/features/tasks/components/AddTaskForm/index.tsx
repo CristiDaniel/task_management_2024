@@ -49,6 +49,7 @@ const AddTaskForm = () => {
   return (
     <form className={styles.add_task_form} onSubmit={handleSubmit}>
       <input
+      data-testId="tr"
         type="text"
         name="title"
         value={formData.title}
