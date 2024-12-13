@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ITaskItem } from "../interfaces";
+import { ITaskItem, ITaskPriorityCounts } from "../interfaces";
 import {
   addTask,
   countPriorityTasks,
@@ -67,7 +67,7 @@ const useListOfTasks = () => {
   });
 
   /** Count tasks per priority */
-  const { data: countPriority = { low: 0, medium: 0, high: 0 } } = useQuery({
+  const { data: countPriority = { low: 0, medium: 0, high: 0 } } = useQuery<ITaskPriorityCounts>({
     queryKey: ["countTaskPriorities"],
     queryFn: countPriorityTasks,
   });
