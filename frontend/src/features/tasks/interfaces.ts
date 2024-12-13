@@ -6,13 +6,15 @@ export interface ITaskItem {
     created_at: string;
 }
 
-export interface TaskListProps {
-    tasks: ITaskItem[];
-}
-
-export interface UpdateTaskParams {
+export interface IUpdateTaskParams {
     taskId: number,
     updatedFields: Partial<ITaskItem>
+}
+
+export interface ITaskPriorityCounts {
+    low: number;
+    medium: number;
+    high: number;
 }
 
 export type ITaskPriority = 'low' | 'medium' | 'high';
