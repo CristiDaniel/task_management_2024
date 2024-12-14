@@ -1,0 +1,10 @@
+.footer {
+    background: #4c4c4c2b;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding-block: 5px;
+}
+.copywright {
+    color: #fff;
+    font-size: 14px;
+}
