@@ -13,6 +13,7 @@
     inset-inline: 0;
     top: 0;
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     display: flex;
     align-items: center;
 }
