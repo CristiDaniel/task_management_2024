@@ -19,7 +19,7 @@ export default function ListOfTasks() {
         {tasks.map(task => <TaskItem {...task} key={task.id}/>)}
       </div>
       :
-      <p>There are no tasks</p>
+      <p className={styles.no_results}>There are no tasks.</p>
       }
 
     </div>
