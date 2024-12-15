@@ -71,13 +71,13 @@ const useListOfTasks = () => {
   });
 
   /** Count tasks per priority */
-  const { data: countPriority = { low: 0, medium: 0, high: 0 } } = useQuery<ITaskPriorityCounts>({
+  const { data: countPriority = {} } = useQuery<ITaskPriorityCounts>({
     queryKey: ["countTaskPriorities"],
     queryFn: countPriorityTasks,
   });
 
   /** Count tasks per status */
-  const { data: countStatus} = useQuery<ITaskStatus>({
+  const { data: countStatus = {}} = useQuery<ITaskStatus>({
     queryKey: ["countStatusTasks"],
     queryFn: countStatusTasks,
   });
