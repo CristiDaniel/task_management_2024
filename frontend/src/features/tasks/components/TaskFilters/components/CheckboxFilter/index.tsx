@@ -5,6 +5,16 @@ import useQueryParams from "../../../../hooks/useQueryParams";
 import { ICheckboxFilter } from "../../../../interfaces";
 import { formatStatusLabel } from "../../../../../../helpers";
 
+/**
+ * This component renders a filter UI with checkboxes for the user to filter items based on specific criteria.
+ 
+ * Features:
+ * - Dynamically filters and displays only options with non-zero counts.
+ * - Keeps track of selected options using local state (`queryValue`).
+ * - Updates query parameters in the URL based on the selected options.
+ * - Hides the entire filter group if there is only one or zero valid options.
+ */
+
 const CheckboxFilter = (props: ICheckboxFilter) => {
     const {setQueryParam, deleteQueryParam} = useQueryParams();
     const location = useLocation();
