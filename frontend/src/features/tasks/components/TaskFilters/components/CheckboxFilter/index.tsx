@@ -2,8 +2,9 @@ import styles from "./index.module.css";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import useQueryParams from "../../../../hooks/useQueryParams";
+import { ICheckboxFilter } from "../../../../interfaces";
 
-const CheckboxFilter = (props) => {
+const CheckboxFilter = (props: ICheckboxFilter) => {
     const {setQueryParam, deleteQueryParam} = useQueryParams();
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -14,7 +15,7 @@ const CheckboxFilter = (props) => {
 
     const filterItems = Object.keys(props.data).filter(key => props.data[key] !== 0);
   
-    const handleCheck = (value) => {
+    const handleCheck = (value: string) => {
       const newPriority = queryValue.includes(value)
         ? queryValue.filter((p) => p !== value)
         : [...queryValue, value];
