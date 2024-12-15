@@ -1,13 +1,3 @@
-.filters {
-  display: flex;
-  flex-direction: column;
-  gap: 7.5px;
-  background: #84848411;
-  padding: 15px;
-  border-radius: 10px;
-  border: 0.5px solid #fff2;
-  height: fit-content;
-}
 
 .filter_item_select {
   display: flex;

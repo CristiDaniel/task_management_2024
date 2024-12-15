@@ -5,3 +5,8 @@
     grid-template: auto / 300px 1fr;
     margin-inline: auto;
 }
+.content_left {
+    height: fit-content;
+    position: sticky;
+    top: 75px;
+}
