@@ -1,7 +1,7 @@
 export interface ITaskItem {
     id: number;
     title: string;
-    completed: boolean;
+    status: ITaskStatus;
     priority: ITaskPriority,
     created_at: string;
 }
@@ -18,3 +18,4 @@ export interface ITaskPriorityCounts {
 }
 
 export type ITaskPriority = 'low' | 'medium' | 'high';
+export type ITaskStatus = 'pending' | 'in_progress' | 'completed' | 'on_hold' | 'cancelled';
