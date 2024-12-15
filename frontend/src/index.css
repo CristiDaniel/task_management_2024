@@ -4,8 +4,6 @@ html {
 body {
   margin: 0;
   background: #0f0c29;
-  background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
-  background: linear-gradient(to right, #090914, #14245b, #0c0920);
 }
 div#root {
   display: flex;
