@@ -4,9 +4,17 @@ import useListOfTasks from "../../hooks/useListOfTasks";
 import { ChartOptions, TooltipItem } from "chart.js/auto";
 import styles from "./index.module.css";
 
+/**
+ * DoughnutChart Component
+ * 
+ * This component displays a doughnut chart using the `react-chartjs-2` library. 
+ * It visualizes the distribution of task statuses, such as "pending", 
+ * "in progress", "completed", "on hold", and "cancelled".
+*/
 const DoughnutChart = () => {
   const { tasks } = useListOfTasks();
 
+  /** Count the number of tasks for each status and assign a corresponding background color */
   const countStatus = {
     pending: {
       count: tasks.filter((task) => task.status === "pending").length,
@@ -30,18 +38,18 @@ const DoughnutChart = () => {
     },
   };
 
-  // Filtrarea statusurilor care au count > 0
-  const filteredStatus = Object.entries(countStatus).filter(
+  /** Filter for existing / active statuses of tasks */
+  const activeStatuses = Object.entries(countStatus).filter(
     ([, value]) => value.count > 0
   );
 
   /** Chart data config */
   const data = {
-    labels: filteredStatus.map(([key]) => key), 
+    labels: activeStatuses.map(([key]) => key), 
     datasets: [
       {
-        data: filteredStatus.map(([, value]) => value.count),
-        backgroundColor: filteredStatus.map(([, value]) => value.bg_color), 
+        data: activeStatuses.map(([, value]) => value.count),
+        backgroundColor: activeStatuses.map(([, value]) => value.bg_color), 
       },
     ],
   };
@@ -65,7 +73,7 @@ const DoughnutChart = () => {
     },
   };
 
-  /** Early return when no tasks */
+  /** Early return when there are no tasks */
   if (tasks.length === 0) {
     return;
   }
