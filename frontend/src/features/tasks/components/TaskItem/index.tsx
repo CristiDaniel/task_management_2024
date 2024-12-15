@@ -3,19 +3,23 @@ import { ITaskItem, ITaskPriority } from "../../interfaces";
 import styles from "./index.module.css";
 import useListOfTasks from "../../hooks/useListOfTasks";
 import { formatDate } from "../../../../helpers";
+import { useState } from "react";
 
 /**
  * TaskItem component displays a single task with options to mark as completed, change priority, and delete.
  */
 export default function TaskItem(props: ITaskItem) {
-  console.log(props.id);
   const { deleteTask, updateTask } = useListOfTasks();
+  const [taskStatus, setTaskStatus] = useState<ITaskItem["status"]>(
+    props.status
+  );
 
-  const handleCheckboxChange = (
+  const handleSelectStatus = (
     taskId: ITaskItem["id"],
-    completed: ITaskItem["completed"]
+    status: ITaskItem["status"]
   ) => {
-    updateTask({ taskId, updatedFields: { completed: !completed } });
+    setTaskStatus(status);
+    updateTask({ taskId, updatedFields: { status } });
   };
   const handleChangePriority = (
     taskId: ITaskItem["id"],
@@ -34,13 +38,7 @@ export default function TaskItem(props: ITaskItem) {
       <div className={styles.main_content_task}>
         <div>
           <div className={styles.title_container}>
-            <h2
-              style={{
-                textDecoration: `${props.completed ? "line-through" : "none"}`,
-              }}
-            >
-              {props.title}
-            </h2>
+            <h2>{props.title}</h2>
             <p>
               Priority:
               <select
@@ -70,12 +68,23 @@ export default function TaskItem(props: ITaskItem) {
       </div>
       <div className={styles.task_actions}>
         <label>
-          Mark as done
-          <input
-            onChange={() => handleCheckboxChange(props.id, props.completed)}
-            type="checkbox"
-            checked={props.completed}
-          />
+          Status
+          <select
+            name="status"
+            onChange={(e) =>
+              handleSelectStatus(
+                props.id,
+                e.target.value as ITaskItem["status"]
+              )
+            }
+            value={taskStatus}
+          >
+            <option value="pending">Pending</option>
+            <option value="in_progress">In Progress</option>
+            <option value="completed">Completed</option>
+            <option value="on_hold">On Hold</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
         </label>
         <button
           onClick={() => deleteTask(props.id)}
