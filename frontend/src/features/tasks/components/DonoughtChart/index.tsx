@@ -3,6 +3,7 @@ import "chart.js/auto";
 import useListOfTasks from "../../hooks/useListOfTasks";
 import { ChartOptions, TooltipItem } from "chart.js/auto";
 import styles from "./index.module.css";
+import { formatStatusLabel } from "../../../../helpers";
 
 /**
  * DoughnutChart Component
@@ -45,7 +46,7 @@ const DoughnutChart = () => {
 
   /** Chart data config */
   const data = {
-    labels: activeStatuses.map(([key]) => key), 
+    labels: activeStatuses.map(([key]) => formatStatusLabel(key)), 
     datasets: [
       {
         data: activeStatuses.map(([, value]) => value.count),
