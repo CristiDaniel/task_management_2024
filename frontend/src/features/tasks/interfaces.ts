@@ -16,6 +16,13 @@ export interface ITaskPriorityCounts {
     medium: number;
     high: number;
 }
+export interface ITaskStatusCounts {
+    pending: number;
+    in_progress: number;
+    completed: number;
+    on_hold: number;
+    cancelled: number;
+}
 
 export interface ICheckboxFilter {
     queryValue: string; 
