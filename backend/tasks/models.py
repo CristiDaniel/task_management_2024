@@ -2,10 +2,17 @@ from django.db import models
 
 class Task(models.Model):
     title = models.CharField(max_length=200)
-    completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    # Adaugă câmpul priority
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('in_progress', 'In Progress'),
+        ('completed', 'Completed'),
+        ('on_hold', 'On Hold'),
+        ('cancelled', 'Cancelled'),
+    ]
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+
     PRIORITY_CHOICES = [
         ('low', 'Low'),
         ('medium', 'Medium'),

@@ -1,6 +1,7 @@
 from rest_framework import generics
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
+
 
 from .models import Task
 from .serializers import TaskSerializer
@@ -8,25 +9,25 @@ from .serializers import TaskSerializer
 class TaskListCreateView(generics.ListCreateAPIView):
     """
     View to list or create tasks.
-    Filters: completed (true/false), priority (low, medium, high)
+    Filters: priority (low, medium, high), status (pending, in_progress, completed, on_hold, cancelled)
     Sorts: date_added_asc, date_added_desc, title_asc, title_desc
     """
     serializer_class = TaskSerializer
 
     def get_queryset(self):
         queryset = Task.objects.all()
-        completed = self.request.query_params.get('completed', None)
         order = self.request.query_params.get('order')
         priority = self.request.query_params.get('priority', None)
+        status = self.request.query_params.get('status', None)
 
         # Apply filters
-        if completed is not None:
-            completed = completed.lower() in ['true', '1', 'yes']
-            queryset = queryset.filter(completed=completed)
-
         if priority:
             priority_values = priority.split(',')
             queryset = queryset.filter(priority__in=priority_values)
+
+        if status:
+            status_values = status.split(',')
+            queryset = queryset.filter(status__in=status_values)
 
         # Apply sorting
         if order == 'date_added_asc':
@@ -42,18 +43,12 @@ class TaskListCreateView(generics.ListCreateAPIView):
 
         return queryset
 
+
 class TaskDetailView(generics.RetrieveUpdateDestroyAPIView):
-    """
-    View to retrieve, update, or delete a specific task.
-    """
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
 class TasksPrioritiesView(APIView):
-    """
-    View to count tasks based on priority.
-    Returns: low, medium, high
-    """
     def get(self, request, *args, **kwargs):
         low_count = Task.objects.filter(priority="low").count()
         medium_count = Task.objects.filter(priority="medium").count()
@@ -63,6 +58,25 @@ class TasksPrioritiesView(APIView):
             "low": low_count,
             "medium": medium_count,
             "high": high_count,
+        }
+
+        return Response(response_data)
+    
+
+class TasksStatusView(APIView):
+    def get(self, request, *args, **kwargs):
+        pending = Task.objects.filter(status="pending").count()
+        in_progress = Task.objects.filter(status="in_progress").count()
+        completed = Task.objects.filter(status="completed").count()
+        on_hold = Task.objects.filter(status="on_hold").count()
+        cancelled = Task.objects.filter(status="cancelled").count()
+
+        response_data = {
+            "pending": pending,
+            "in_progress": in_progress,
+            "completed": completed,
+            "on_hold": on_hold,
+            "cancelled": cancelled,
         }
 
         return Response(response_data)
