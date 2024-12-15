@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ITaskItem, ITaskPriorityCounts, ITaskStatus } from "../interfaces";
+import { ITaskItem, ITaskPriorityCounts, ITaskStatusCounts } from "../interfaces";
 import {
   addTask,
   countPriorityTasks,
@@ -77,7 +77,7 @@ const useListOfTasks = () => {
   });
 
   /** Count tasks per status */
-  const { data: countStatus = {}} = useQuery<ITaskStatus>({
+  const { data: countStatus = {}} = useQuery<ITaskStatusCounts>({
     queryKey: ["countStatusTasks"],
     queryFn: countStatusTasks,
   });
