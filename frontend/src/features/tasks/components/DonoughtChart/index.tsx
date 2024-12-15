@@ -58,9 +58,11 @@ const DoughnutChart = () => {
   /** Chart options */
   const options: ChartOptions<"doughnut"> = {
     responsive: true,
+    maintainAspectRatio: false, // Ensure that aspect ratio is not maintained
     plugins: {
       legend: {
         position: "top",
+        
       },
       tooltip: {
         callbacks: {
@@ -80,8 +82,8 @@ const DoughnutChart = () => {
   }
 
   return (
-    <div className={styles.donought_chart}>
-      <Doughnut data={data} options={options} />
+    <div className={styles.donought_chart} data-testId="chart">
+      <Doughnut data={data} options={options}/>
     </div>
   );
 };

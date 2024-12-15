@@ -33,6 +33,7 @@ export default function TaskFilters() {
       <div className={styles.filter_item_select}>
         <label htmlFor="order">Sort by</label>
         <select
+        data-testid="options"
           id="order"
           value={currentOrder}
           onChange={(e) => handleOnChangeOrder(e.target.value)}
