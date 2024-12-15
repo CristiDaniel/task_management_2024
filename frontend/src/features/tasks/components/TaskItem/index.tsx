@@ -6,7 +6,7 @@ import { formatDate } from "../../../../helpers";
 import { useState } from "react";
 
 /**
- * TaskItem component displays a single task with options to mark as completed, change priority, and delete.
+ * TaskItem component displays a single task with options to change status, change priority, and delete.
  */
 export default function TaskItem(props: ITaskItem) {
   const { deleteTask, updateTask } = useListOfTasks();
@@ -33,6 +33,14 @@ export default function TaskItem(props: ITaskItem) {
     medium: { border: "#6f6f00", color: "#cccc00" },
     high: { border: "#630000", color: "#b00000" },
   };
+  const statusBgColors = {
+    pending: "#b65d09",
+    in_progress: "#19b665",
+    completed: "#036915",
+    on_hold: "#2d518b",
+    cancelled: "#931818",
+  }
+
   return (
     <div className={styles.task} draggable={true}>
       <div className={styles.main_content_task}>
@@ -70,6 +78,7 @@ export default function TaskItem(props: ITaskItem) {
         <label>
           Status
           <select
+          style={{backgroundColor: statusBgColors[props.status]}}
             name="status"
             onChange={(e) =>
               handleSelectStatus(
