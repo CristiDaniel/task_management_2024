@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import useQueryParams from "../../../../hooks/useQueryParams";
 import { ICheckboxFilter } from "../../../../interfaces";
+import { formatStatusLabel } from "../../../../../../helpers";
 
 const CheckboxFilter = (props: ICheckboxFilter) => {
     const {setQueryParam, deleteQueryParam} = useQueryParams();
@@ -29,14 +30,6 @@ const CheckboxFilter = (props: ICheckboxFilter) => {
       }
     };
 
-    /** Converts a snake_case status string into a human-readable format with each word capitalized. */
-    function formatStatusLabel(status: string) {
-      return status
-          .toLowerCase()
-          .split('_')
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(' ');
-  }
 if(filterItems.length <=1) {
   return null;
 }

@@ -12,3 +12,12 @@ export const formatDate = (isoDate: string) => {
     
     return formattedDate;
 }
+
+     /** Converts a snake_case status string into a human-readable format with each word capitalized. */
+export const formatStatusLabel = (status: string) => {
+  return status
+      .toLowerCase()
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+}
