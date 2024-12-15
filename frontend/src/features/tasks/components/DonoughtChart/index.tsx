@@ -5,37 +5,48 @@ import { ChartOptions, TooltipItem } from "chart.js/auto";
 import styles from "./index.module.css";
 
 const DoughnutChart = () => {
-  const { isLoading, tasks } = useListOfTasks();
+  const { tasks } = useListOfTasks();
 
-  // Filtrarea countStatus pentru a elimina valorile zero
   const countStatus = {
-    pending: tasks.filter((task) => task.status === "pending").length,
-    "In Progress": tasks.filter((task) => task.status === "in_progress").length,
-    Completed: tasks.filter((task) => task.status === "completed").length,
-    "On Hold": tasks.filter((task) => task.status === "on_hold").length,
-    Cancelled: tasks.filter((task) => task.status === "cancelled").length,
+    pending: {
+      count: tasks.filter((task) => task.status === "pending").length,
+      bg_color: "#b65d09",
+    },
+    in_progress: {
+      count: tasks.filter((task) => task.status === "in_progress").length,
+      bg_color: "#19b665",
+    },
+    completed: {
+      count: tasks.filter((task) => task.status === "completed").length,
+      bg_color: "#036915",
+    },
+    on_hold: {
+      count: tasks.filter((task) => task.status === "on_hold").length,
+      bg_color: "#2d518b",
+    },
+    cancelled: {
+      count: tasks.filter((task) => task.status === "cancelled").length,
+      bg_color: "#931818",
+    },
   };
 
+  // Filtrarea statusurilor care au count > 0
   const filteredStatus = Object.entries(countStatus).filter(
-    ([, value]) => value > 0
+    ([, value]) => value.count > 0
   );
-  
+
+  /** Chart data config */
   const data = {
-    labels: filteredStatus.map(([key]) => key), // Etichete filtrate
+    labels: filteredStatus.map(([key]) => key), 
     datasets: [
       {
-        data: filteredStatus.map(([, value]) => value), // Date filtrate
-        backgroundColor: [
-          "#b65d09",
-          "#19b665",
-          "#036915",
-          "#2d518b",
-          "#931818",
-        ],
+        data: filteredStatus.map(([, value]) => value.count),
+        backgroundColor: filteredStatus.map(([, value]) => value.bg_color), 
       },
     ],
   };
 
+  /** Chart options */
   const options: ChartOptions<"doughnut"> = {
     responsive: true,
     plugins: {
@@ -54,19 +65,15 @@ const DoughnutChart = () => {
     },
   };
 
-  if(tasks.length === 0) {
-    return null
+  /** Early return when no tasks */
+  if (tasks.length === 0) {
+    return;
   }
+
   return (
-    <>
-      {isLoading ? (
-        <p>Loading Chart...</p>
-      ) : (
-        <div className={styles.donought_chart}>
-          <Doughnut data={data} options={options} />
-        </div>
-      )}
-    </>
+    <div className={styles.donought_chart}>
+      <Doughnut data={data} options={options} />
+    </div>
   );
 };
 
