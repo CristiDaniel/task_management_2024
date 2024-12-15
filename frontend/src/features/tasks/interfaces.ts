@@ -17,5 +17,11 @@ export interface ITaskPriorityCounts {
     high: number;
 }
 
+export interface ICheckboxFilter {
+    queryValue: string; 
+    data: Record<string, number>; 
+    label: string;
+  }
+
 export type ITaskPriority = 'low' | 'medium' | 'high';
 export type ITaskStatus = 'pending' | 'in_progress' | 'completed' | 'on_hold' | 'cancelled';
