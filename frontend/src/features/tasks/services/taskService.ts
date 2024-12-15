@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   ITaskItem,
   ITaskPriorityCounts,
+  ITaskStatus,
   IUpdateTaskParams,
 } from "../interfaces";
 
@@ -49,6 +50,12 @@ export const updateTask = async ({
 export const countPriorityTasks = async (): Promise<ITaskPriorityCounts> => {
   const response = await axios.get(
     `http://localhost:8000/api/tasks/count-priorities`
+  );
+  return response.data;
+};
+export const countStatusTasks = async (): Promise<ITaskStatus> => {
+  const response = await axios.get(
+    `http://localhost:8000/api/tasks/count-status`
   );
   return response.data;
 };

@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ITaskItem, ITaskPriorityCounts } from "../interfaces";
+import { ITaskItem, ITaskPriorityCounts, ITaskStatus } from "../interfaces";
 import {
   addTask,
   countPriorityTasks,
+  countStatusTasks,
   deleteTask,
   fetchListOfTasks,
   updateTask,
@@ -31,6 +32,7 @@ const useListOfTasks = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       queryClient.invalidateQueries({ queryKey: ["countTaskPriorities"] });
+      queryClient.invalidateQueries({ queryKey: ["countStatusTasks"] });
     },
     onError: (err) => {
       console.log(err);
@@ -44,6 +46,7 @@ const useListOfTasks = () => {
     onSuccess: (item) => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       queryClient.invalidateQueries({ queryKey: ["countTaskPriorities"] });
+      queryClient.invalidateQueries({ queryKey: ["countStatusTasks"] });
       toast.success(`Task-ul ${item.title} a fost actualizat!`);
     },
     onError: (err) => {
@@ -58,6 +61,7 @@ const useListOfTasks = () => {
     onSuccess: (task) => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
       queryClient.invalidateQueries({ queryKey: ["countTaskPriorities"] });
+      queryClient.invalidateQueries({ queryKey: ["countStatusTasks"] });
       toast.success(`Task-ul ${task.title} a fost adaugat cu succes`);
     },
     onError: (err) => {
@@ -72,9 +76,16 @@ const useListOfTasks = () => {
     queryFn: countPriorityTasks,
   });
 
+  /** Count tasks per status */
+  const { data: countStatus} = useQuery<ITaskStatus>({
+    queryKey: ["countStatusTasks"],
+    queryFn: countStatusTasks,
+  });
+
   return {
     tasks,
     countPriority,
+    countStatus,
     isLoading,
     error,
     isError,
