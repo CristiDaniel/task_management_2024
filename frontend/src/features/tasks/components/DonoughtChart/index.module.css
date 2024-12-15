@@ -1,0 +1,12 @@
+.donought_chart {
+    width: 100%;
+    height: fit-content;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 7.5px;
+    background: #84848411;
+    border-radius: 10px;
+    border: 0.5px solid #fff2;
+    height: fit-content;
+}
