@@ -6,32 +6,34 @@ import {
   IUpdateTaskParams,
 } from "../interfaces";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 export const fetchTask = async (
   taskId: ITaskItem["id"]
 ): Promise<ITaskItem> => {
   const response = await axios.get(
-    `http://localhost:8000/api/tasks/${taskId}/`
+    `${BASE_URL}/api/tasks/${taskId}/`
   );
   return response.data;
 };
 
 export const fetchListOfTasks = async (): Promise<ITaskItem[]> => {
   const response = await axios.get<ITaskItem[]>(
-    `http://localhost:8000/api/tasks${window.location.search}`
+    `${BASE_URL}/api/tasks${window.location.search}`
   );
   return response.data;
 };
 
 export const deleteTask = async (taskId: ITaskItem["id"]): Promise<void> => {
   const response = await axios.delete(
-    `http://localhost:8000/api/tasks/${taskId}/`
+    `${BASE_URL}/api/tasks/${taskId}/`
   );
   return response.data;
 };
 
 export const addTask = async (newTask: Partial<ITaskItem>) => {
   const response = await axios.post(
-    `http://localhost:8000/api/tasks/`,
+    `${BASE_URL}/api/tasks/`,
     newTask
   );
   return response.data;
@@ -41,7 +43,7 @@ export const updateTask = async ({
   updatedFields,
 }: IUpdateTaskParams) => {
   const response = await axios.patch(
-    `http://localhost:8000/api/tasks/${taskId}/`,
+    `${BASE_URL}/api/tasks/${taskId}/`,
     updatedFields
   );
   return response.data;
@@ -49,13 +51,13 @@ export const updateTask = async ({
 
 export const countPriorityTasks = async (): Promise<ITaskPriorityCounts> => {
   const response = await axios.get(
-    `http://localhost:8000/api/tasks/count-priorities`
+    `${BASE_URL}/api/tasks/count-priorities`
   );
   return response.data;
 };
 export const countStatusTasks = async (): Promise<ITaskStatusCounts> => {
   const response = await axios.get(
-    `http://localhost:8000/api/tasks/count-status`
+    `${BASE_URL}/api/tasks/count-status`
   );
   return response.data;
 };
