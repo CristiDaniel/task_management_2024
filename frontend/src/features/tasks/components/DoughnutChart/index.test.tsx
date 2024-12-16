@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { vi } from "vitest";
-import DoughnutChart from ".";
+import DoughnutChart from "./index.tsx";
 import * as TaskService from "../../services/taskService.ts";
 import { MemoryRouter as Router } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -10,7 +10,7 @@ vi.mock("../../services/taskService.ts");
 
 const MockedTaskService = vi.mocked(TaskService);
 
-const DonoughtChartContainer = () => (
+const DoughnutChartContainer = () => (
   <Router>
     <QueryClientProvider client={queryClient}>
       <DoughnutChart />
@@ -27,7 +27,7 @@ describe("DoughnutChart Component", () => {
     MockedTaskService.fetchListOfTasks.mockResolvedValue([
     ]);
 
-    render(<DonoughtChartContainer />);
+    render(<DoughnutChartContainer />);
 
     await waitFor(() => {
 
@@ -45,7 +45,7 @@ describe("DoughnutChart Component", () => {
       },
     ]);
 
-    render(<DonoughtChartContainer />);
+    render(<DoughnutChartContainer />);
 
     await waitFor(() => {
 

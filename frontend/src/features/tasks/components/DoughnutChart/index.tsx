@@ -82,7 +82,7 @@ const DoughnutChart = () => {
   }
 
   return (
-    <div className={styles.donought_chart} data-testId="chart">
+    <div className={styles.doughnut_chart} data-testId="chart">
       <Doughnut data={data} options={options}/>
     </div>
   );

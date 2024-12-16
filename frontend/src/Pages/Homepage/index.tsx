@@ -1,5 +1,5 @@
 import ListOfTasks from "../../features/tasks";
-import DoughnutChart from "../../features/tasks/components/DonoughtChart";
+import DoughnutChart from "../../features/tasks/components/DoughnutChart";
 import TaskFilters from "../../features/tasks/components/TaskFilters";
 import styles from "./index.module.css";
 
