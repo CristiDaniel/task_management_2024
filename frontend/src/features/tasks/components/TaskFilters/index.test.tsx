@@ -41,6 +41,58 @@ describe("TaskFilters", () => {
 
 })
 
+it('should not render checkbox filters when there are no tasks', async() => {
+  MockedTaskService.countPriorityTasks.mockResolvedValueOnce(
+    {
+        "low": 0,
+        "medium": 0,
+        "high": 0
+    }
+)
+MockedTaskService.countStatusTasks.mockResolvedValueOnce(
+  {
+    "pending": 0,
+    "in_progress": 0,
+    "completed": 0,
+    "on_hold": 0,
+    "cancelled": 0
+  }
+)
+  render(<TaskFiltersContainer />)
+
+
+await waitFor(()=> {
+  expect(screen.queryByText("Filter by Priority", {exact: false})).not.toBeInTheDocument()  
+  expect(screen.queryByText("Filter by Status", {exact: false})).not.toBeInTheDocument()  
+})
+})
+
+it('should not render checkbox filters when all tasks have the same priority and status', async() => {
+  MockedTaskService.countPriorityTasks.mockResolvedValueOnce(
+    {
+        "low": 5,
+        "medium": 0,
+        "high": 0
+    }
+)
+MockedTaskService.countStatusTasks.mockResolvedValueOnce(
+  {
+    "pending": 5,
+    "in_progress": 0,
+    "completed": 0,
+    "on_hold": 0,
+    "cancelled": 0
+  }
+)
+  render(<TaskFiltersContainer />)
+
+
+await waitFor(()=> {
+  expect(screen.queryByText("Filter by Priority", {exact: false})).not.toBeInTheDocument()  
+  expect(screen.queryByText("Filter by Status", {exact: false})).not.toBeInTheDocument()  
+})
+})
+
 it('should render checkbox filters based on enpoint data received', async() => {
   MockedTaskService.countPriorityTasks.mockResolvedValueOnce(
     {
@@ -49,32 +101,26 @@ it('should render checkbox filters based on enpoint data received', async() => {
         "high": 0
     }
 )
+MockedTaskService.countStatusTasks.mockResolvedValueOnce(
+  {
+    "pending": 3,
+    "in_progress": 2,
+    "completed": 0,
+    "on_hold": 0,
+    "cancelled": 0
+  }
+)
   render(<TaskFiltersContainer />)
 
 
 await waitFor(()=> {
-  expect(screen.getByText("Low", {exact: false})).toBeInTheDocument()  
+  expect(screen.queryByText("Filter by Priority", {exact: false})).toBeInTheDocument()  
+  expect(screen.queryByText("Low (3)", {exact: false})).toBeInTheDocument()  
+  expect(screen.queryByText("Medium (2)", {exact: false})).toBeInTheDocument()  
+  
+  expect(screen.queryByText("Filter by Status", {exact: false})).toBeInTheDocument()  
+  expect(screen.queryByText("Pending (3)", {exact: false})).toBeInTheDocument()  
+  expect(screen.queryByText("In Progress (2)", {exact: false})).toBeInTheDocument()  
 })
 })
-
-it('should not render checkbox filters when tasks has no different priorities', async () => {
-  MockedTaskService.countStatusTasks.mockResolvedValueOnce(
-    {
-      "pending": 4,
-      "in_progress": 0,
-      "completed": 0,
-      "on_hold": 0,
-      "cancelled": 0
-    }
-  )
-  render(<TaskFiltersContainer />)
-
-  await waitFor(() => {
-    expect(screen.queryByText("Filter by Status", {exact: false})).not.toBeInTheDocument()  
-    // expect(screen.queryByTestId("chart")).toBeInTheDocument()  
-    screen.debug()
-  })
-})
-
-
 })

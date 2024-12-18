@@ -58,7 +58,7 @@ if(filterItems.length <=1) {
               onChange={(e) => handleCheck(e.target.value)}
             />
             <label htmlFor={key}>
-              {formatStatusLabel(key)} <span>({props.data[key]})</span>
+              {formatStatusLabel(key)} ({props.data[key]})
             </label>
           </div>
         ) : null
